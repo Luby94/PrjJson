@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+  <h2>Home</h2>
+  <div><a href="http://localhost:9090/hello.html">hello.html</a></div>
+  <div><a href="/hello.html">hello.html</a></div>
+  <!-- static : root 가 됨 : url -->
+  <!-- / : http://localhost:9090 : static 폴더 안 -->
+  <!-- resources : html, css, favicon -->
+  <div><a href="/hi">Greetings</a></div>
+  <!-- uri : indicator -> 컨트롤러 주소 -->
+  <!-- /hi 인 컨트롤러 주소를 찾아가라 -->
+  <div><a href="/hi2">원영님 반갑습니다 </a></div>
+  <div><a href="/hi3">반갑습니다(부트스트랩) </a></div>
+  <div><a href="/hi4">반갑습니다(include 기술사용) </a></div>
+  <div>&nbsp;</div>
+  <div>&nbsp;</div>
+  <div>&nbsp;</div>
+  <div><a href="/articles/WriteForm">새 글쓰기</a></div>
+  <!-- mustache 목적 : write.mustache, 여기선 입력받도록 하는 mustache 로 보내야함 -->
+  <!-- 컨트롤러의 매핑 주소 : /articles/WriteForm, a tag : @GetMapping 으로 받음 -->
+  <!-- ArticleController 로 이동 -->
+</body>
+</html>
