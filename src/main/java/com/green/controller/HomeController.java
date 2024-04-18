@@ -12,7 +12,8 @@ public class HomeController {
 	public  String   hi() {
 	
 		return "greetings";   
-		// greetings.mustache  화면을 보여줄 template 이름
+		// src/main/resources/templates/greetings .mustache 
+		// 화면을 보여줄 template 이름
 		// resources/template package 에 생성
 		}
 

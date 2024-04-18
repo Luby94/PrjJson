@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
-// 실제 database 의 table 구조를 만든다
+// 실제 database 의 table 구조를 만든다 : Create Table
 // import : jakarta 로 -> import jakarta.persistence.
 // persistence : 영속성 -> 영구적으로 보관, pk(primary key) 를 영구적으로 만들어라
 @Entity
