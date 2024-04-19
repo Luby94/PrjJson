@@ -1,7 +1,6 @@
 package com.green.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,12 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 // import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.green.dto.ArticleDto;
+import com.green.dto.ArticleForm;
 import com.green.entity.Article;
 import com.green.repository.ArticleRepository;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class ArticleController {
 	
@@ -79,6 +82,10 @@ public class ArticleController {
 		
 		return "redirect:/articles/List";
 		
+		// articleDto : 2칸 , Article : 3칸 -> 담을 때 변환 작업 필요 -> ArticleDto.java 메소드 추가
+		// ArticleDto.java 메소드 : null 이 넘어가도록(articleDto 에는 id 없으니 null 이 전달되어야함)
+		// Article.java 는 id 에 null 이 들어갈 수 있도록, long 이 아닌 Long 으로 타입을 준다.
+		
 	}
 	
 	// data 조회 : 1번 data
@@ -103,6 +110,7 @@ public class ArticleController {
 		// 2번 방법
 		Article articleEntity = articleRepository.findById(id).orElse(null);
 		// 값이 있으면 Article 을 리턴, 값이 없으면 (.orElse) null 리턴
+		// 객체(= Article)는 값이 없으면 null 을 받을 수 있다
 		System.out.println("2번 방법으로 조회 결과= " + articleEntity);	// 2번 방법으로 조회 결과= Article [id=1, title=bbb, content=bbb]
 		
 		model.addAttribute("article", articleEntity);	// 조회한 결과 -> model 에 담음
@@ -140,23 +148,77 @@ public class ArticleController {
 	
 	// 데이터 수정페이지로 이동
 	@GetMapping("/articles/{id}/EditForm")
-	public String editForm( @PathVariable(value="id") Long id ) {
-		// // Mapping 주소에 {id} 가 있으니 editForm() 안에 넘겨받을 값 있어야함 -> @PathVariable(value="id") Long id
+	public String editForm( @PathVariable(value="id") Long id, Model model ) {
+		// Mapping 주소에 {id} 가 있으니 editForm() 안에 넘겨받을 값 있어야함 -> @PathVariable(value="id") Long id
 		
+		// 수정할 데이터를 조회
+		Article articleEntity = articleRepository.findById(id).orElse(null);
+		// -> 한줄의 데이터는 null 을 가질 수 있으므로 type mismatch 에러 발생
+		System.out.println( "==========================articleEntity: " + articleEntity );
+		
+		// 조회한 데이터를 model 에 저장
+		model.addAttribute("article", articleEntity);
+		
+		// 수정 페이지로 이동
 		return "articles/edit";
 		
 	}
 	
 	// 데이터 수정
-	@GetMapping("/articles/{id}/Edit")
-	public String edit() {
+	@PostMapping("/articles/Edit")
+	public String edit( ArticleForm articleForm ) {
+		
+		log.info( "수정용 데이터: " + articleForm.toString() );
 		
 		// db 수정
+		// 1. Dto -> Entity 로 변환
+		/*
+		Long id = articleForm.getId();
+		String title = articleForm.getTitle();
+		String content = articleForm.getContent();
+		Article articleEntity = new Article( id, title, content );
+		*/
+		Article articleEntity = articleForm.toEntity();	// 위에 /* 4줄 */ 줄인 것이 여기 한줄
+		
+		// 2. Entity 를 db 에 수정(저장) 한다
+		// 2-1. 수정할 데이터를 찾아서 (db 의 data 를 가져온다)
+		Long id = articleForm.getId();
+		Article target = articleRepository.findById(id).orElse(null);
+		
+		// 2-2. 필요한 데이터를 추적&변경 한다
+		if(target != null) {	// 자료가 있으면 저장한다(수정)
+			articleRepository.save( articleEntity );
+		}
 		
 		// return "redirect:/articles/view/" + id;
 		return "redirect:/articles/List";
 		
 	}
+	
+	// 데이터 삭제
+	@GetMapping("/articles/{id}/Delete")
+	public String delete( @PathVariable(value="id") Long id, RedirectAttributes rttr ) {
+		
+		// 1. 삭제할 대상을 검색한다
+		Article target = articleRepository.findById(id).orElse(null);
+		
+		// 2. 대상 Entity 를 삭제한다
+		if( target != null ) {
+			
+			articleRepository.delete( target );
+			
+			// RedirectAttributes rttr : redirect 할 페이지에서 사용할 데이터를 넘김
+			// Model 과 다른 점 : 한번 쓰면 사라지는 휘발성 데이터
+			// 삭제 후 임시 메시지를 list.mustache 가 출력한다
+			rttr.addFlashAttribute("msg", id + "번 자료가 삭제되었습니다");
+			// header.mustache 에 출력
+			
+		}
+		
+		return "redirect:/articles/List";
+		
+	}
+	
 	
 	
 }

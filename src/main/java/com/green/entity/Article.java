@@ -23,8 +23,8 @@ public class Article {
 	private String content;
 	
 	// Constructor
-	public Article() {}
-	public Article(Long id, String title, String content) {
+	public Article() {}	// @NoArgsConstructor : default constructor : 기본 생성자
+	public Article(Long id, String title, String content) {	// Arguments : Long id, String title, String content
 		super();
 		this.id = id;
 		this.title = title;
