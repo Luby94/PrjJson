@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 // 실제 database 의 table 구조를 만든다 : Create Table
 // import : jakarta 로 -> import jakarta.persistence.
 // persistence : 영속성 -> 영구적으로 보관, pk(primary key) 를 영구적으로 만들어라
+// 그냥 참고) @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ARTICLE_SEQ_GENERATOR")
 @Entity
 public class Article {
 
@@ -55,6 +56,17 @@ public class Article {
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", title=" + title + ", content=" + content + "]";
+	}
+	
+	public void patch(Article article) {
+		
+		if( article.title != null ) {
+			this.title = article.title;
+		}
+		if( article.content != null ) {
+			this.content = article.content;
+		}
+		
 	}
 	
 	
