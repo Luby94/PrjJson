@@ -16,7 +16,7 @@ public class CommentDto {
 	private String nickname;	// 작성자 별명
 	private String body;		// 댓글 내용
 	
-	// CommentDto  <-  Comments
+	// CommentDto  <-  Comments (db 조회한)
 	public static CommentDto createCommentDto( Comments comments ) {	//static : 객체 이름으로 땡겨쓰겠다
 		
 		return new CommentDto (

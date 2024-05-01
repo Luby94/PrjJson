@@ -44,6 +44,7 @@ public class Article {
 		this.content = content;
 	}
 	
+	// 수정하기 위한 용도를 추가
 	public void patch(Article article) {
 	      if(article.title   != null)
 	         this.title   = article.title;

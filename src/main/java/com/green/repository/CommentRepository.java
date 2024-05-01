@@ -10,9 +10,11 @@ import com.green.entity.Comments;
 public interface CommentRepository extends JpaRepository<Comments, Long> {	// Long : id 의 Type
 
 	// @Query 어노테이션 통해서 findByArticleId() 함수 실행한다
+	// @Query 어노테이션은 Jpa 기능 사용하지 않고 @Query 안의 sql 을 사용한다
+	// findByArticleId() 함수는 Comments 테이블 칼럼을 사용해서 만든다
 	// Native Query Method - oracle 문법으로 작성된 쿼리를 입력하여 조회
 	// nativeQuery = true : 오라클 전용함수
-	// nativeQuery = false : JPA 함수
+	// nativeQuery = false : JPQL 문법, JPA 함수
 	// :[콜론] = 파라미터  →  :articleId (넘어온 파라미터)로 조회
 	@Query(value="SELECT * FROM comments WHERE article_id = :articleId",
 			nativeQuery=true)
