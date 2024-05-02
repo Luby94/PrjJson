@@ -5,6 +5,24 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <h2>Hell로 월드</h2>
+  <h2 style="color: red" data-value="없는글자">Hell로 월드</h2>
+  <p>큰 글자를 클릭하면 배경색이 노란색이 됩니다</p>
+  
+  <script>
+  
+  const h2El = document.querySelector('h2')
+  
+  console.dir(h2El)
+  console.dir(h2El.style.color)
+  console.log(h2El)
+  console.log(h2El.style.color)
+  console.dir(h2El.innerHTML)
+  console.log(h2El.innerHTML)
+  
+  alert(h2El.dataset.value)
+  // h2 tag 에 그냥 value 는 없는 속성(F12 개발자 도구 Console-Object 클릭 시 확인 안됨) → data-value 하면 dataset 속성에 저장
+  
+  </script>
+  
 </body>
 </html>

@@ -1,12 +1,15 @@
 <div>
+  <div class="card">
   {{ #commentDtos }}
   <div class="card-header">
-    닉네임
-    수정버튼
-    삭제버튼
+    {{nickname}}&nbsp;&nbsp;&nbsp;
+    <button type="button" class="btn btn-sm btn-outline-primary">수정</button>&nbsp;
+    <button type="button" class="btn btn-sm btn-outline-danger comment-delete-btn">삭제</button>
+    ( {{ id }}, {{ articleId }} )
   </div>
   <div class="card-body">
-    댓글 body
+    {{body}}
   </div>
   {{ /commentDtos }}
+  </div>
 </div>
