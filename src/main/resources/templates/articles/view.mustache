@@ -25,8 +25,9 @@
 <div class="mx-auto" style="width: 80%">
 <a href="/articles/List"            class="btn btn-sm btn-primary" style="width: 100px">목록</a>   
 <a href="/articles/WriteForm"       class="btn btn-sm btn-secondary" style="width: 100px">새 글쓰기</a>   
-<a href="/articles/{{id}}/EditForm" class="btn btn-sm btn-warning" style="width: 100px">수정</a>   
-<a href="/articles/{{id}}/Delete"   class="btn btn-sm btn-danger" style="width: 100px">삭제</a>   
+<a href="/articles/{{article.id}}/EditForm" class="btn btn-sm btn-warning" style="width: 100px">수정</a>   
+<a href="/articles/{{idx}}/Delete"   class="btn btn-sm btn-danger" style="width: 100px">삭제</a>   
+{{! id <= @Pathvariable / 주소줄의 정보 → view.mustache 까지 전달이 됨 }}
 </div>
    
    <!-- 댓글 뷰 화면 추가 -->  

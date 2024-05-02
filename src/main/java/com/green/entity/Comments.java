@@ -32,7 +32,7 @@ public class Comments {
 	
 	@ManyToOne                      // 관계 : 다대일 설정 (Comments <-> Article)  
 	@JoinColumn(name="article_id")  // 외래키 칼럼 (부모키 Article id칼럼)
-	private  Article  article;      // 연결될 entity 객체의 이름
+	private  Article  article;      // 연결될 entity 객체의 이름, 외래키를 갖고있는 테이블 이름
 	
 	//@Column(name="nick_name", nullable=false, length=255)
 	// oracle 11g varchar2 최대 4000 byte

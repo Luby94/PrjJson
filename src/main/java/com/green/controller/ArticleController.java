@@ -56,39 +56,6 @@ public class ArticleController {
 		return "redirect:/articles/List";
 	}
 	
-	// 1번 데이터 조회 : PathVariable -> GET
-	// java.lang.IllegalArgumentException: Name for argument of type
-	// 1번 방법. @PathVariable(value="id") 추가
-	// 2번 방법. sts 설정 추가 
-	// 프로젝트 -> properties  -> Java Compiler -> 
-	// -> ✅ project specific settings 체크
-	// -> ✅ store infomation ... 체크
-	
-	// No default constructor for entity 'com.green.entity.Article' 
-	// Article 에 @NoArgsConstructor  추가
-	// localhost:9090/articles/1
-	@GetMapping("/articles/{id}")
-	public  String  view(
-			@PathVariable(value="id")  Long id,  
-			Model   model) {
-		// Article  articleEntity  = articleRepository.findById(id); 
-		// 1번방법  // Type mismatch error
-		// Optional<Article>  articleEntity  = articleRepository.findById(id);
-		// 값이 있으면 Article 을 리턴, 값이 없으면 null 리턴
-		
-		// 2번 방법
-		// id 에 해당하는 게시글 조회
-		Article  articleEntity  = articleRepository.findById(id).orElse(null);
-		System.out.println( "1번 조회 결과:" + articleEntity );
-		model.addAttribute("article", articleEntity ); // 조회한 결과 -> model
-		
-		// 댓글 목록 조회 4번 게시글의 댓글 목록
-		List<CommentDto> commentDtos = commentService.comments(id);
-		model.addAttribute("commentDtos", commentDtos);
-		
-		return "articles/view";  // articles/view.mustache
-	}
-	
 	@GetMapping("/articles/List")
 	public  String   list(Model model) {
 		// List<Article> articleEntityList =  articleRepository.findAll();
@@ -103,6 +70,39 @@ public class ArticleController {
 		
 		return  "articles/list"; // /templates/ articles/list .mustache
 		
+	}
+	
+	// 1번 데이터 조회 : PathVariable -> GET
+	// java.lang.IllegalArgumentException: Name for argument of type
+	// 1번 방법. @PathVariable(value="id") 추가
+	// 2번 방법. sts 설정 추가 
+	// 프로젝트 -> properties  -> Java Compiler -> 
+	// -> ✅ project specific settings 체크
+	// -> ✅ store infomation ... 체크
+	
+	// No default constructor for entity 'com.green.entity.Article' 
+	// Article 에 @NoArgsConstructor  추가
+	// localhost:9090/articles/1
+	@GetMapping("/articles/{idx}")
+	public  String  view(
+			@PathVariable(value="idx")  Long idx,  
+			Model   model) {
+		// Article  articleEntity  = articleRepository.findById(id); 
+		// 1번방법  // Type mismatch error
+		// Optional<Article>  articleEntity  = articleRepository.findById(id);
+		// 값이 있으면 Article 을 리턴, 값이 없으면 null 리턴
+		
+		// 2번 방법
+		// id 에 해당하는 게시글 조회
+		Article  articleEntity  = articleRepository.findById(idx).orElse(null);
+		System.out.println( "1번 조회 결과:" + articleEntity );
+		model.addAttribute("article", articleEntity ); // 조회한 결과 -> model
+		
+		// 댓글 목록 조회 4번 게시글의 댓글 목록
+		List<CommentDto> commentDtos = commentService.comments(idx);
+		model.addAttribute("commentDtos", commentDtos);
+		
+		return "articles/view";  // articles/view.mustache
 	}
 
 	// 데이터 수정페이지로 이동

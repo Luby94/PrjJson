@@ -5,22 +5,68 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <h2 style="color: red" data-value="없는글자">Hell로 월드</h2>
+  <h2 style="color: red" data-id="1" data-value="없는속성1">Hell로 월드1</h2>
+  <h2 style="color: red" data-id="2" data-value="없는속성2">Hell로 월드2</h2>
+  <!-- h2 tag 에 그냥 value 는 없는 속성(F12 개발자 도구 Console-Object 클릭 시 확인 안됨) → data-value 하면 dataset 속성에 저장 -->
   <p>큰 글자를 클릭하면 배경색이 노란색이 됩니다</p>
   
   <script>
   
-  const h2El = document.querySelector('h2')
+  /* ①
+  // const h2El = document.querySelector('h2')
+  // data-id 1, 2 중 어느 h2 를 찾는건지 알 수 없음 -> getElementsByTagName('h2') 수정 -> 배열 */
+  // ②const h2Els = document.getElementsByTagName('h2')
+  // ③
+  const h2Els = document.querySelectorAll('h2')
   
+  /* ①h2El - console 찍기
   console.dir(h2El)
   console.dir(h2El.style.color)
   console.log(h2El)
   console.log(h2El.style.color)
   console.dir(h2El.innerHTML)
   console.log(h2El.innerHTML)
+  console.dir(h2El.value)
+  console.dir(h2El.dataset.value) */
   
-  alert(h2El.dataset.value)
-  // h2 tag 에 그냥 value 는 없는 속성(F12 개발자 도구 Console-Object 클릭 시 확인 안됨) → data-value 하면 dataset 속성에 저장
+  // ②, ③
+  console.dir(h2Els[0])
+  console.log(h2Els[0])
+  
+  /* ①h2El.addEventListener('click', () => {
+	  
+  }) */
+  
+  /* ②
+  for(let i = 0; i < h2Els.length; i++) {
+	  
+	  h2Els[i].addEventListener('click', () => {
+		  alert(h2Els[i].dataset.value)
+	  })
+	  
+  } */
+  
+  // ③
+  h2Els.forEach( (h2El, i) => {
+	  
+	  //h2El.onclick = function(e) {
+	  h2El.onclick = function(event) {
+	  
+		  const el = event.target;	// h2
+		  console.dir(event);	// PointerEvent : h2 클릭한 것에 대한 이벤트
+		  console.dir(el.innerHTML)	// Hello월드1 || 2
+		  
+		  alert(this.innerHTML)	// event.targrt == this(위에 const el = event.target; 지워도 동작)
+		  
+		  //this.style.backgroundColor = 'yellow';
+		  this.style['background-color'] = 'cyan';
+		  
+	  }
+	  
+  } );
+	  
+  
+  // ①alert(h2El.dataset.value)
   
   </script>
   

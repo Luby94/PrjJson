@@ -45,7 +45,7 @@ public class CommentApiController {
 	// 결과  400(Bad Request) 에러 -  {"id": 4,  입력데이터 키 json type "" 안에 저장 
 	// 에러 입력 : {"id": 4, "article_id": 4, "nickname": "Hoon","body": "이프 온리"	}
 	// 결과  500  message : "댓글 생성실패! 댓글의 id가 없어야합니다",
-	@PostMapping("/api/articles/{articleId}/comments")	
+	@PostMapping("/api/articles/{articleId}/comments")
 	public ResponseEntity<CommentDto> create(
 		  @PathVariable	Long         articleId,  // {articleId}  : 게시글번호
 		  @RequestBody  CommentDto   dto	         // 입력된 자료들 input, select

@@ -1,15 +1,17 @@
-<div>
-  <div class="card">
+<div id="comments-list">
   {{ #commentDtos }}
-  <div class="card-header">
-    {{nickname}}&nbsp;&nbsp;&nbsp;
-    <button type="button" class="btn btn-sm btn-outline-primary">수정</button>&nbsp;
-    <button type="button" class="btn btn-sm btn-outline-danger comment-delete-btn">삭제</button>
-    ( {{ id }}, {{ articleId }} )
-  </div>
-  <div class="card-body">
-    {{body}}
+  <!-- comments-{{id}} : commentDtos.id → 서버에서 받아올 값 -->
+  <!-- m-2 : margin, 기준의 50% -->
+  <div class="card m-2" id="comments-{{id}}">
+    <div class="card-header">
+      {{nickname}}&nbsp;&nbsp;&nbsp;
+      <button type="button" class="btn btn-sm btn-outline-primary">수정</button>&nbsp;
+      <button type="button" class="btn btn-sm btn-outline-danger comment-delete-btn">삭제</button>
+      ( {{ id }}, {{ articleId }} )
+    </div>
+    <div class="card-body">
+      {{body}}
+    </div>
   </div>
   {{ /commentDtos }}
-  </div>
 </div>
