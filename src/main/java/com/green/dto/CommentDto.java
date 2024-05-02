@@ -18,7 +18,7 @@ public class CommentDto {
 	private  String   body;        // 댓글 내용
 
     // CommentDto <- Comments( db 조회한)
-	public static CommentDto 
+	public static CommentDto 			//static : 객체 이름으로 땡겨쓰겠다
 	       createCommentDto(Comments  comments) {
 		return new CommentDto (
 			comments.getId(),	
@@ -28,10 +28,6 @@ public class CommentDto {
 			);
 	}
 }
-
-
-
-
 
 
 

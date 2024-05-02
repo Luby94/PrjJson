@@ -22,4 +22,3 @@ INSERT INTO comments(id,article_id, nickname, body) VALUES(comments_seq.nextval,
 INSERT INTO comments(id,article_id, nickname, body) VALUES(comments_seq.nextval, 6, 'Park', '조깅');
 INSERT INTO comments(id,article_id, nickname, body) VALUES(comments_seq.nextval, 6, 'Kim', '유튜브 시청');
 INSERT INTO comments(id,article_id, nickname, body) VALUES(comments_seq.nextval, 6, 'Choi', '독서');
-

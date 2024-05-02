@@ -43,6 +43,7 @@ public class ArticleForm {
 	}
 	
 	// Method
+	// 클래스 쓰는 방법 : 데이터 중심의 클래스(Vo etc), 기능 중심의 클래스(프로레스, 컨트롤러 etc)
 	public  Article  toEntity( ) {
 		
 		return  new Article(id, title, content);
@@ -50,11 +51,6 @@ public class ArticleForm {
 	}
 	
 }
-
-
-
-
-
 
 
 
