@@ -16,31 +16,6 @@ import com.green.entity.Comments;
 
 // @DataJpaTest : 해당 클래스를 JPA와 연동해 테스트하겠다는 선언
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)    // <-- 추가
-class CommentRepositoryTest {
-    @Autowired
-    private CommentRepository commentRepository;
-
-    @Test
-    @DisplayName("특정 게시글의 모든 댓글 조회")  // 테스트 이름
-    void findByArticleId() {
-        /* Case 1: 4번 게시글의 모든 댓글 조회 */
-        {
-            // 1. 입력 데이터 준비
-            Long articleId = 4L;
-            // 2. 실제 데이터
-            List<Comments> comments = commentRepository.findByArticleId(articleId);
-            // 3. 예상 데이터
-            Article article = new Article(4L, "당신의 인생 영화는?", "댓글 고");
-            Comments a = new Comments(1L, article, "Park", "굿 윌 헌팅");
-            Comments b = new Comments(2L, article, "Kim", "아이 엠 샘");
-            Comments c = new Comments(3L, article, "Choi", "쇼생크 탈출");
-            List<Comments> expected = Arrays.asList(a, b, c);
-              // Arrays.asList() 배열을 ArrayList 롤 변경, 단점 : add(), remove() 안됨
-            // 4. 비교 및 검증
-            assertEquals(expected.toString(), comments.toString(),
-            		"4번 글의 모든 댓글을 출력!");
-            
 @AutoConfigureTestDatabase(
 		replace = AutoConfigureTestDatabase.Replace.NONE	// oracle 이 명령 추가해줘야 error 안남
 		)
