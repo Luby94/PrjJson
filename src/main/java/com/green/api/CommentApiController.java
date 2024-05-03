@@ -37,7 +37,7 @@ public class CommentApiController {
 		return ResponseEntity.status(HttpStatus.OK).body( dtos );		
 	}
 	
-	// 2. 댓글 생성(POST)
+	// 2. 댓글 추가(POST)
 	// Post http://localhost:9090/api/articles/4/comments 
 	// 입력 data : {"article_id":4, "nickname":"Hoon", "body":"이프 온리"}
 	// 결과 {"id": null, "article_id": 4, "nickname": "Hoon","body": "이프 온리"	}
@@ -45,10 +45,12 @@ public class CommentApiController {
 	// 결과  400(Bad Request) 에러 -  {"id": 4,  입력데이터 키 json type "" 안에 저장 
 	// 에러 입력 : {"id": 4, "article_id": 4, "nickname": "Hoon","body": "이프 온리"	}
 	// 결과  500  message : "댓글 생성실패! 댓글의 id가 없어야합니다",
+	// _new.mustache : let url = 'http://localhost:9090/api/articles/{{idx}}/comments';
+	// _new.mustache 에선 {{idx}} 가 여기(컨트롤러)로 넘어올때, 컨트롤러는 {articleId} 로 받음
 	@PostMapping("/api/articles/{articleId}/comments")
 	public ResponseEntity<CommentDto> create(
 		  @PathVariable	Long         articleId,  // {articleId}  : 게시글번호
-		  @RequestBody  CommentDto   dto	         // 입력된 자료들 input, select
+		  @RequestBody  CommentDto   dto	         // 입력된 자료들 input, select → js fetch body : {}
 		  ) {
 		CommentDto createdDto  =  commentService.create(articleId, dto);
 		// 결과 응답
@@ -61,12 +63,17 @@ public class CommentApiController {
 	// 입력데이터 { "article_id":6, "id":7,"body":"수영", "nickname":"Park2"}    }
 	@PatchMapping("/api/comments/{id}")
 	public ResponseEntity<CommentDto> update(
-			@PathVariable  Long        id,
+			@PathVariable(value="id") Long id,
 			@RequestBody   CommentDto  dto   // 수정할 데이터를 가지고있다
 			) {
 		
-		CommentDto  udpateDto = commentService.update(id, dto);		
-		return ResponseEntity.status(HttpStatus.OK).body( udpateDto );	
+		System.out.println("=================id: " + id );
+		System.out.println("=================dto: " + dto );
+
+		CommentDto  updateDto = commentService.update(id, dto);	
+		System.out.println("=================updateDto: " + updateDto );
+		
+		return ResponseEntity.status(HttpStatus.OK).body( updateDto );	
 		
 	}
 	

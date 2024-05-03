@@ -22,7 +22,7 @@
       <div class="mb-3">
         <label class="form-label">댓글 내용</label>
         <label>
-          <textarea type="text" class="form-controll" rows="3"
+          <textarea type="text" class="form-control" rows="3"
            id="new-comment-body">
           </textarea>
         </label>
@@ -44,14 +44,17 @@
   
   commentCreateBtnEl.addEventListener('click', () => {
       
-      let url = 'http://loaclhost:9090/api/articles/{{idx}}/comments';
+      // {{idx}} : ArticleController 의 Pathvariable 의 idx - mustache 파일에서도 사용가능하다 
+      let url = 'http://localhost:9090/api/articles/{{idx}}/comments';
+      
+      // js 객체
       const comment = {
           // 새 댓글의 nickname
           nickname : document.querySelector('#new-comment-nickname').value ,
           // 새 글의 본문
           body : document.querySelector('#new-comment-body').value ,
           // 부모 게시글의 id
-          articleId : document.querySelector('#new-comment-id').value
+          article_id : document.querySelector('#new-comment-id').value
       }
       
       const params = {

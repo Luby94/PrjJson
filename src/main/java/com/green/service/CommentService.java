@@ -86,6 +86,7 @@ public class CommentService {
 					() -> new IllegalArgumentException(
 					"댓글 수정 실패! 수정할 댓글이 없습니다")
 				); 
+		System.out.println("============================target: " + target);
 		  
 		// 2. 댓글 수정 : 조회한 데이터의 내용을 수정(class 안의 내용변경)
 		//  target : 수정할 원본 데이터
@@ -99,6 +100,7 @@ public class CommentService {
 		return   CommentDto.createCommentDto(updated);
 	}
 
+	// 4. 댓글 삭제
 	@Transactional
 	public CommentDto delete(Long id) {
 		// 1. 삭제할 댓글 조회 및 예외 처리
@@ -112,7 +114,7 @@ public class CommentService {
 		
 		// 3. 삭제 댓들을 dto호 반환한 후 리턴
 		return CommentDto.createCommentDto(target);
-	}         
+	}
 		
 }
 
